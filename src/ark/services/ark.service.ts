@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import * as Gamedig from 'gamedig';
-import { ConfigService } from '@nestjs/config';
+import type * as Ark from 'Ark';
 
 @Injectable()
 export class ArkService {

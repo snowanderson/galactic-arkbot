@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { DiscordClientProvider, Once } from '@discord-nestjs/core';
 import { MessagePayload, WebhookMessageOptions } from 'discord.js';
+import type * as Ark from 'Ark';
 
 @Injectable()
 export class BotService {

@@ -1,4 +1,6 @@
 import { EmbedFieldData } from 'discord.js';
+import type * as Ark from 'Ark';
+import type * as Nitrado from 'Nitrado';
 
 export class Embed {
   /**

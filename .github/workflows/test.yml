@@ -1,0 +1,78 @@
+name: Test
+
+on: [push, workflow_call]
+jobs:
+
+  #
+  # ------------- DEPENDENCIES -------------
+  #
+
+  npm-dependencies:
+    name: NPM dependencies
+    runs-on: ubuntu-latest
+    container:
+      image: kirschbaumdevelopment/laravel-test-runner:8.1
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Install npm dependencies
+        uses: "bahmutov/npm-install@v1"
+
+  #
+  # ------------- TESTS -------------
+  #
+
+  eslint:
+    name: Linting
+    needs: [npm-dependencies]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Install npm dependencies
+        uses: "bahmutov/npm-install@v1"
+
+      - name: Run ESLint
+        run: npm run lint -- --cache --quiet --no-fix
+
+  unit-test:
+    name: Unit tests
+    needs: [ npm-dependencies ]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Install npm dependencies
+        uses: "bahmutov/npm-install@v1"
+
+      - name: Run ESLint
+        run: npm run test
+
+  build:
+    name: Build
+    needs: [ npm-dependencies ]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Install npm dependencies
+        uses: "bahmutov/npm-install@v1"
+
+      - name: Run ESLint
+        run: npm run build

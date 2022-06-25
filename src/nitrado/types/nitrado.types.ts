@@ -1,4 +1,4 @@
-declare namespace Nitrado {
+declare module 'Nitrado' {
   type GameServer = {
     must_be_started: boolean;
     status:

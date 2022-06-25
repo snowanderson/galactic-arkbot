@@ -1,4 +1,4 @@
-declare namespace Ark {
+declare module 'Ark' {
   type ArkServerStatus =
     | {
         status: 'online';
