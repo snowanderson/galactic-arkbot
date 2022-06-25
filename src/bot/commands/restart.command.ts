@@ -11,7 +11,6 @@ import { InteractionReplyOptions, MessageEmbed } from 'discord.js';
 import { RestartDto } from '../dto/restart.dto';
 import { Embed } from '../components/embed';
 import { NitradoService } from '../../nitrado/services/nitrado.service';
-import { BotService } from '../services/bot.service';
 
 @Command({
   name: 'restart',

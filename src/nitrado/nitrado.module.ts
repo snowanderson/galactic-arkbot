@@ -10,13 +10,13 @@ import { NitradoService } from './services/nitrado.service';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
-        baseURL: `https://api.nitrado.net/services/${configService.get('NITRAPI_SERVICE_ID')}`,
+        baseURL: `https://api.nitrado.net/services/${configService.get(
+          'NITRAPI_SERVICE_ID',
+        )}`,
         headers: {
           ContentType: 'application/json',
           Authorization: `Bearer ${configService.get('NITRAPI_TOKEN')}`,
-          'User-Agent': `nitrado.js/${configService.get(
-            'NITRAPI_VERSION',
-          )}`,
+          'User-Agent': `nitrado.js/${configService.get('NITRAPI_VERSION')}`,
         },
       }),
     }),
