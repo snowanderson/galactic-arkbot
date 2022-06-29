@@ -24,7 +24,7 @@ declare module 'Ark' {
       steamid: string;
       tags: string[];
     };
-    maxPlayers: number;
+    maxPlayers?: number;
     players: Player[];
     bots: Player[];
     connect: string;
