@@ -1,7 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { DiscordClientProvider, Once } from '@discord-nestjs/core';
 import { MessagePayload, WebhookMessageOptions } from 'discord.js';
+import { format } from 'date-fns';
 import type * as Ark from 'Ark';
+import { greenCheck, redCross } from '../../utils/emojis';
 
 @Injectable()
 export class BotService {
@@ -15,40 +17,20 @@ export class BotService {
     this.logger.log(
       `Logged in as ${this.discordProvider.getClient().user.tag}!`,
     );
-    this.getStatus();
-  }
-
-  getStatus() {
-    const activities =
-      this.discordProvider.getClient().user.presence.activities;
-    if (activities.length) {
-      const status = activities[0].name.replace('server: ', '');
-      if (!BotService.statusIsServerStatus(status)) {
-        this.logger.error('Incorrect server status', { status });
-        throw new Error('Incorrect server status');
-      }
-      this.status = status;
-      return status;
-    }
-    return undefined;
   }
 
   setStatus(serverStatus: Ark.ArkServerStatus['status']) {
+    const emoji = serverStatus === 'online' ? greenCheck : redCross;
+    const lastUpdate = format(new Date(), 'dd/MM/yyyy HH:mm:ss');
+
     this.discordProvider
       .getClient()
-      .user.setActivity(`server: ${serverStatus}`, {
+      .user.setActivity(`serveur: ${emoji} (${lastUpdate})`, {
         type: 'WATCHING',
       });
-    this.status = serverStatus;
   }
 
   async sendMessage(options: string | MessagePayload | WebhookMessageOptions) {
     await this.discordProvider.getWebhookClient().send(options);
-  }
-
-  private static statusIsServerStatus(
-    status: string,
-  ): status is Ark.ArkServerStatus['status'] {
-    return ['online', 'offline'].includes(status);
   }
 }

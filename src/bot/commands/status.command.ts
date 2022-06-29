@@ -35,15 +35,15 @@ export class StatusCommand implements DiscordCommand {
             }),
           )
           .addFields([
-            { name: 'Name', value: machine.settings.config['server-name'] },
+            { name: 'Nom', value: machine.settings.config['server-name'] },
             {
-              name: 'Message of the day',
+              name: 'Message du jour',
               value: machine.settings.config['message-of-the-day'],
             },
-            { name: 'Ip address', value: machine.ip },
+            { name: 'Adresse IP', value: machine.ip },
             { name: 'Port', value: String(machine.query_port) },
             { name: 'Machine', value: machine.status, inline: true },
-            { name: 'Server', value: server.status, inline: true },
+            { name: 'Serveur', value: server.status, inline: true },
             ...(server.status === 'online'
               ? [
                   Embed.getServerLinkEmbedField(machine),

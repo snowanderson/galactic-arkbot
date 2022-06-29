@@ -9,7 +9,7 @@ export class Embed {
    */
   static getServerLinkEmbedField(server: Nitrado.GameServer): EmbedFieldData {
     return {
-      name: 'Link to join',
+      name: 'Lien pour rejoindre',
       value: `steam://connect/${server.ip}:${server.query_port}/${server.settings.config['server-password']}`,
     };
   }

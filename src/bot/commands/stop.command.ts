@@ -26,26 +26,17 @@ export class StopCommand implements DiscordTransformedCommand<StopDto> {
   ): Promise<InteractionReplyOptions> {
     const { user } = interaction;
 
-    const { success, server, message, stoppingServerMessage } =
-      await this.nitrado.stop(user.username, dto.message);
+    const { success, message, stoppingServerMessage } = await this.nitrado.stop(
+      user.username,
+      dto.message,
+    );
 
     return {
       embeds: [
         new MessageEmbed()
-          .setTitle(server.game_human)
-          .setColor(Embed.getColorForAPISuccess(success))
-          .addFields([
-            {
-              name: 'Name',
-              value: server.settings.config['server-name'],
-            },
-            { name: 'Message', value: message, inline: true },
-            success && {
-              name: 'Reason',
-              value: stoppingServerMessage,
-              inline: true,
-            },
-          ]),
+          .setTitle(message)
+          .setDescription(stoppingServerMessage)
+          .setColor(Embed.getColorForAPISuccess(success)),
       ],
     };
   }
