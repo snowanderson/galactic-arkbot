@@ -26,29 +26,15 @@ export class RestartCommand implements DiscordTransformedCommand<RestartDto> {
   ): Promise<InteractionReplyOptions> {
     const { user } = interaction;
 
-    const { success, server, message, restartingServerMessage } =
+    const { success, message, restartingServerMessage } =
       await this.nitrado.restart(user.username, dto.message);
 
     return {
       embeds: [
         new MessageEmbed()
-          .setTitle(server.game_human)
-          .setColor(Embed.getColorForAPISuccess(success))
-          .addFields([
-            {
-              name: 'Name',
-              value: server.settings.config['server-name'],
-            },
-            { name: 'Message', value: message, inline: true },
-            ...(success && [
-              Embed.getServerLinkEmbedField(server),
-              {
-                name: 'Reason',
-                value: restartingServerMessage,
-                inline: true,
-              },
-            ]),
-          ]),
+          .setTitle(message)
+          .setDescription(restartingServerMessage)
+          .setColor(Embed.getColorForAPISuccess(success)),
       ],
     };
   }
