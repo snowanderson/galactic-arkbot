@@ -49,7 +49,9 @@ export class StatusCommand implements DiscordCommand {
                   Embed.getServerLinkEmbedField(machine),
                   {
                     name: 'Players',
-                    value: `${server.server.players.length}/${server.server.maxPlayers}`,
+                    value: `${server.server.players.length}/${
+                      server.server.maxPlayers ?? 10
+                    }`,
                     inline: true,
                   },
                 ]

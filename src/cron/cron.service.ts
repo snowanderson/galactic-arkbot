@@ -35,7 +35,7 @@ export class CronService {
 
     if (this.arkStatus && this.arkStatus !== server.status) {
       embeds.push(
-        this.arkStatus === 'online'
+        server.status === 'online'
           ? new MessageEmbed()
               .setTitle('Serveur en ligne !')
               .setColor('GREEN')
@@ -52,7 +52,7 @@ export class CronService {
     }
 
     if (this.machineStatus && this.machineStatus !== machine.status) {
-      embeds.push(this.getEmbedForServerStatus(this.machineStatus));
+      embeds.push(this.getEmbedForServerStatus(machine.status));
     }
 
     this.machineStatus = machine.status;
