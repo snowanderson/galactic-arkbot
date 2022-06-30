@@ -16,7 +16,7 @@ export class Embed {
 
   /**
    * Get a color corresponding to the machine and server status:
-   * - GREEN if machine started and server online
+   * - GREEN if server is reachable
    * - RED if machine stopped
    * - ORANGE in other cases
    * @param status: GameServer status
@@ -28,23 +28,12 @@ export class Embed {
     machineStatus: Nitrado.GameServer['status'];
     serverStatus: Ark.ArkServerStatus['status'];
   }): 'GREEN' | 'ORANGE' | 'RED' {
-    switch (machineStatus) {
-      case 'started':
-        return serverStatus === 'online' ? 'GREEN' : 'ORANGE';
-      case 'stopped':
-        return 'RED';
-      default:
-        return 'ORANGE';
+    if (serverStatus === 'online') {
+      return 'GREEN';
     }
-  }
-
-  /**
-   * Get a color corresponding to the success of API call
-   * - GREEN if successful
-   * - RED if failed
-   * @param success: API call success
-   */
-  static getColorForAPISuccess(success: boolean): 'GREEN' | 'RED' {
-    return success ? 'GREEN' : 'RED';
+    if (machineStatus === 'stopped') {
+      return 'RED';
+    }
+    return 'ORANGE';
   }
 }
