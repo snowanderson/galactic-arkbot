@@ -9,7 +9,6 @@ import {
 
 import { InteractionReplyOptions, MessageEmbed } from 'discord.js';
 import { StopDto } from '../dto/stop.dto';
-import { Embed } from '../components/embed';
 import { NitradoService } from '../../nitrado/services/nitrado.service';
 
 @Command({
@@ -31,12 +30,19 @@ export class StopCommand implements DiscordTransformedCommand<StopDto> {
       dto.message,
     );
 
+    const embed = new MessageEmbed();
+
     return {
       embeds: [
-        new MessageEmbed()
-          .setTitle(message)
-          .setDescription(stoppingServerMessage)
-          .setColor(Embed.getColorForAPISuccess(success)),
+        success
+          ? embed
+              .setTitle(message)
+              .setColor('BLUE')
+              .setDescription(stoppingServerMessage)
+          : embed
+              .setTitle("Echec de l'arrêt")
+              .setColor('RED')
+              .setDescription("Le serveur n'a pas pu s'arréter"),
       ],
     };
   }

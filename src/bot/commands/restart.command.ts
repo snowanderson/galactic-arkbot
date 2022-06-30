@@ -9,7 +9,6 @@ import {
 
 import { InteractionReplyOptions, MessageEmbed } from 'discord.js';
 import { RestartDto } from '../dto/restart.dto';
-import { Embed } from '../components/embed';
 import { NitradoService } from '../../nitrado/services/nitrado.service';
 
 @Command({
@@ -29,12 +28,19 @@ export class RestartCommand implements DiscordTransformedCommand<RestartDto> {
     const { success, message, restartingServerMessage } =
       await this.nitrado.restart(user.username, dto.message);
 
+    const embed = new MessageEmbed();
+
     return {
       embeds: [
-        new MessageEmbed()
-          .setTitle(message)
-          .setDescription(restartingServerMessage)
-          .setColor(Embed.getColorForAPISuccess(success)),
+        success
+          ? embed
+              .setTitle(message)
+              .setColor('BLUE')
+              .setDescription(restartingServerMessage)
+          : embed
+              .setTitle('Echec du (re)démarrage')
+              .setColor('RED')
+              .setDescription("Le serveur n'a pas pu (re)démarrer"),
       ],
     };
   }
