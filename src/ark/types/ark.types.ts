@@ -32,7 +32,7 @@ declare module 'Ark' {
   };
 
   type Player = {
-    name: string;
+    name?: string;
     raw: {
       score: number;
       time: number;
