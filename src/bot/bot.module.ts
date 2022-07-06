@@ -9,6 +9,7 @@ import { BotService } from './services/bot.service';
 import { ArkModule } from '../ark/ark.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Intents } from 'discord.js';
+import { PlayersCommand } from './commands/players.command';
 
 @Module({
   imports: [
@@ -34,7 +35,13 @@ import { Intents } from 'discord.js';
     NitradoModule,
     ArkModule,
   ],
-  providers: [StatusCommand, StopCommand, RestartCommand, BotService],
+  providers: [
+    StatusCommand,
+    StopCommand,
+    RestartCommand,
+    BotService,
+    PlayersCommand,
+  ],
   exports: [BotService],
 })
 export class BotModule {}
